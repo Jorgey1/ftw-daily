@@ -32,6 +32,7 @@ const sharetribeSdk = require('sharetribe-flex-sdk');
 const Decimal = require('decimal.js');
 const sitemap = require('express-sitemap');
 const auth = require('./auth');
+const apiRouter = require('./apiRouter');
 const renderer = require('./renderer');
 const dataLoader = require('./dataLoader');
 const fs = require('fs');
@@ -132,8 +133,9 @@ if (!dev) {
   }
 }
 
-// Route to initiate authorization code login flow
-app.use(auth.initiateLoginAs);
+// Server-side routes that do not render the application
+app.use('/api', apiRouter);
+
 
 const noCacheHeaders = {
   'Cache-control': 'no-cache, no-store, must-revalidate',
